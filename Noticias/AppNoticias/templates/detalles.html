@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+<main class="container mt-3 mb-5">
+	<!-- featured news -->
+	<div class="row my-3">
+		<!-- Left -->
+		<div class="col-md-8">
+			<div class="card mb-3">
+                <img src="/media/{{noticia.imagen}}" class="card-img-top" alt="{{noticia.titulo}}">
+			  <div class="card-body">
+			    <h5 class="card-title">{{noticia.titulo}}</h5>
+			    <hr/>
+			    <p class="card-text">{{noticia.detalles}}</p>
+			  </div>
+			  <div class="card-footer">
+			  	En <a href="/categoria/{{noticia.categoria.id}}">{{noticia.categoria.titulo}}</a>
+			  </div>
+			</div>
+
+			<!-- Comments -->
+			<div class="card my-4">
+				<h6 class="card-header">Añadir comentario</h6>
+				<div class="card-body">
+					{% for mensaje in mensajes %}
+					<p class="text-success">{{mensaje}}</p>
+					{% endfor %}
+					<form method="post" action="/detalles/{{noticia.id}}">
+						{% csrf_token %}
+						<div class="form-group row">
+							<label class="col-md-2">Nombre<span class="text-danger">*</span></label>
+							<div class="col-md-10">
+								<input type="text" name="nombre" required class="form-control" />
+							</div>
+						</div>
+                        <div class="form-group row">
+
+							<div class="col-md-10">
+
+							</div>
+
+						</div>
+						<div class="form-group row">
+							<label class="col-md-2">comentario<span class="text-danger">*</span></label>
+							<div class="col-md-10">
+								<textarea class="form-control" name="mensaje" required></textarea>
+							</div>
+						</div>
+						<input type="submit" class="btn btn-primary" />
+					</form>
+				</div>
+			</div>
+			<!-- Previous Comments -->
+			<div class="card my-4">
+				<h6 class="card-header">Comentarios</h6>
+				<div class="card-body">
+					{% for comentario in comentario %}
+					<blockquote class="blockquote text-left">
+					  <p class="mb-0">{{comentario.comentario}}</p>
+					  <footer class="blockquote-footer">{{comentario.nombre}}</footer>
+					</blockquote>
+					<hr/>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<!-- Related News -->
+		<div class="col-md-4">
+			<h3 class="mb-3 border-bottom pb-1">En esta ciudad</h3>
+			<!-- Category Box -->
+			{% for noticia in noticia_relacionada %}
+			<div class="card mb-3 shadow">
+                <img src="/media/{{noticia.imagen}}" class="card-img-top" alt="{{noticia.titulo}}">
+			  <div class="card-body">
+			    <h5 class="card-title">{{noticia.titulo}}</h5>
+			    <hr/>
+			    <p class="card-text"><a href="/detalles/{{noticia.id}}" class="btn btn-sm btn-primary">Leer más</a></p>
+			  </div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</main>
+{% endblock %}

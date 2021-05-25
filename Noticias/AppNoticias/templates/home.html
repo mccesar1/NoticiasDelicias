@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<main class="container mt-3 mb-5">
+	<!-- featured news -->
+	<div class="row my-3">
+		<!-- Left -->
+		<div class="col-md-7">
+			<div class="card mb-3">
+			  <img src="media/{{primer_noticia.imagen}}" class="card-img-top" alt="{{primer_noticia.titulo}}">
+			  <div class="card-body">
+			    <h5 class="card-title">{{primer_noticia.titulo}}</h5>
+			    <hr/>
+			    <p class="card-text"><a href="/detalles/{{primer_noticia.id}}" class="btn btn-sm btn-primary">Leer más</a></p>
+			  </div>
+			</div>
+		</div>
+		<!-- Right -->
+		<div class="col-md-5" style="max-height: 450px; overflow: auto;">
+			{% for noticia in tres_noticia %}
+			<!-- News Box -->
+			<div class="card">
+			  <div class="row no-gutters">
+			    <div class="col-md-4">
+					<img src="media/{{noticia.imagen}}" class="card-img-top" alt="{{noticia.titulo}}">
+			    </div>
+			    <div class="col-md-8">
+			      <div class="card-body">
+			        <h5 class="card-title">{{noticia.titulo}}</h5>
+			        <p class="card-text"><a href="/detalles/{{noticia.id}}" class="btn btn-sm btn-primary">Leer más</a></p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<hr/>
+			{% endfor %}
+		</div>
+	</div>
+	<!-- Category Wise News -->
+	{% for categoria in tres_categoria %}
+	<h3 class="border-bottom pb-1">{{categoria.titulo}} <a href="/categoria/{{categoria.id}}" class="float-right btn btn-sm btn-dark">En esta ciudad</a></h3>
+	<div class="row my-4">
+		{% for noticia in categoria.noticia_set.all %}
+			{% if forloop.counter < 5 %}
+			<!-- News box -->
+			<div class="col-md-3">
+				<div class="card mb-3 shadow">
+				<img src="/media/{{noticia.imagen}}" class="card-img-top" alt="{{noticia.titulo}}">
+				<div class="card-body">
+					<h5 class="card-title">{{noticia.titulo}}</h5>
+					<hr/>
+					<p class="card-text"><a href="#" class="btn btn-sm btn-primary">Leer más</a></p>
+				</div>
+				</div>
+			</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+	{% endfor %}
+	<!-- End Single Category -->
+</main>
+{% endblock %}
