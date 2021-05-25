@@ -8,9 +8,9 @@
 		{% for categoria in categorias %}
 		<div class="col-md-4">
 			<div class="card mb-3 shadow">
-            <img src="/media/{{categoria.categoria_imagen}}" class="card-img-top" alt="{{categoria.titulo}}">
+            <img height="250" width="100" src="/media/{{categoria.categoria_imagen}}" class="card-img-top" alt="{{categoria.titulo}}">
 			  <div class="card-body">
-			    <h5 class="card-title">{{categorias.titulo}}</h5>
+			    <h5 class="card-title">{{categoria.titulo}}</h5>
 			    <hr/>
 			    <p class="card-text"><a href="categoria/{{categoria.id}}" class="btn btn-sm btn-primary">Todas las noticias</a></p>
 			  </div>
